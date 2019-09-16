@@ -54,25 +54,26 @@ export const useTasks = selectedProject => {
 };
 
 export const useProjects = () => {
-  const [projects, setProjects] = useState();
+  const [projects, setProjects] = useState([{test: 124}]);
 
   useEffect(() => {
     firebase
       .firestore()
       .collection('projects')
       .where('userId', '==', 'testUser')
+      .orderBy('projectId')
       .get()
       .then(snapshot => {
         const allProjects = snapshot.docs.map(project => ({
-          ...projects.data(),
+          ...project.data(),
           docId: project.id
         }));
-        if (JSON.stringify(allProjects) === JSON.stringify(projects)) {
-          setProjects(projects)
+        if (JSON.stringify(allProjects) !== JSON.stringify(projects)) {
+          setProjects(allProjects)
         }
       });
   }, [projects]);
 
-  return { projects, setProjects}
-} ;
+  return { projects, setProjects }
+};
 

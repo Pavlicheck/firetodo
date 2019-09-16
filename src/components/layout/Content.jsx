@@ -3,7 +3,7 @@ import { Sidebar } from './Sidebar/index'
 import { Tasks } from '../Tasks'
 import Grid from "@material-ui/core/Grid";
 
-export const Content = () => {
+export const Content = (props) => {
   return (
     <section>
       <Grid container spacing={3}>

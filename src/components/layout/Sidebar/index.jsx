@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {makeStyles} from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import { TreeView } from '@material-ui/lab';
@@ -13,6 +13,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Label from '@material-ui/icons/Label';
 import {FaInbox, FaPlus, FaRegCalendar, FaRegCalendarAlt, FaProjectDiagram} from "react-icons/fa";
+import {useSelectProjectContext} from "../../../context";
+import { Projects } from './Projects'
 
 const useStyles = makeStyles({
   root: {
@@ -29,9 +31,13 @@ const mainLinks = [
 ]
 
 export const Sidebar = () => {
+  const { setSelectedProject } = useSelectProjectContext;
+  const [active, setAcive] = useState('INBOX');
+  const [showProject, setShowProject] = useState(true);
+
   const classes = useStyles();
   return (
-    <Paper elevation="2" className="sidebar">
+    <Paper elevation={2} className="sidebar">
       <TreeView
         className={classes.root}
         defaultExpanded={['3']}
@@ -42,7 +48,7 @@ export const Sidebar = () => {
         { mainLinks.map((link, index) => (
           <StyledTreeItem
             key={index}
-            nodeId={index}
+            nodeId={`${index}`}
             labelText={link.label}
             labelIcon={link.icon}
           />)
@@ -52,36 +58,13 @@ export const Sidebar = () => {
           nodeId="4"
           labelText="Projects"
           labelIcon={FaProjectDiagram}
-          labelInfo={FaPlus}
+          labelInfo={'+'}
           color="#1a73e8"
           bgColor="#e8f0fe"
         >
-          <StyledTreeItem
-            nodeId="6"
-            labelText="Updates"
-            labelIcon={InfoIcon}
-            labelInfo="2,294"
-            color="#e3742f"
-            bgColor="#fcefe3"
-          />
-          <StyledTreeItem
-            nodeId="7"
-            labelText="Forums"
-            labelIcon={ForumIcon}
-            labelInfo="3,566"
-            color="#a250f5"
-            bgColor="#f3e8fd"
-          />
-          <StyledTreeItem
-            nodeId="8"
-            labelText="Promotions"
-            labelIcon={LocalOfferIcon}
-            labelInfo="733"
-            color="#3c8039"
-            bgColor="#e6f4ea"
-          />
+          <Projects />
         </StyledTreeItem>
-        <StyledTreeItem nodeId="4" labelText="History" labelIcon={Label} />
+        <StyledTreeItem nodeId="12" labelText="History" labelIcon={Label} />
       </TreeView>
     </Paper >
   )
