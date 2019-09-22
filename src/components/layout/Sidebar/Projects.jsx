@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
 
-import InfoIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import DeleteForever from '@material-ui/icons/DeleteForever';
 
-import {StyledTreeItem} from "./TreeItem";
-import { useSelectProjectContext, useProjectsContext } from "../../../context";
+
+import { StyledTreeItem } from "./TreeItem";
+import { useSelectedProjectContext, useProjectsContext } from "../../../context";
+import DeleteProjectButton from "./DeleteProjectButton";
 
 export const Projects = ({activeValue = null}) => {
   const [active, setActive] = useState(activeValue);
-  const { setSelectedProject } = useSelectProjectContext();
+  const { setSelectedProject } = useSelectedProjectContext();
   const { projects } = useProjectsContext();
 
   return (
     projects &&
     projects.map((project, index) => (
       <StyledTreeItem
-        key={project.projectId}
-        nodeId={ `${index}` }
+        key={index}
+        nodeId={ project.docId }
         data-doc-id={project.docId}
         onClick={() => {
           setActive(project.projectId);
           setSelectedProject(project.projectId);
         }}
-        data-testId="project-action"
+        dataTestId="project-action"
         labelText={project.name}
-        labelIcon={InfoIcon}
+        actionIcon={() => <DeleteProjectButton docId={project.docId}/>}
         color="#e3742f"
         bgColor="#fcefe3"
       />

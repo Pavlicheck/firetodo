@@ -7,13 +7,12 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import InfoIcon from '@material-ui/icons/Info';
 import ForumIcon from '@material-ui/icons/Forum';
 import MailIcon from '@material-ui/icons/Mail';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Label from '@material-ui/icons/Label';
 import {FaInbox, FaPlus, FaRegCalendar, FaRegCalendarAlt, FaProjectDiagram} from "react-icons/fa";
-import {useSelectProjectContext} from "../../../context";
+import {useSelectedProjectContext} from "../../../context";
 import { Projects } from './Projects'
 
 const useStyles = makeStyles({
@@ -25,13 +24,13 @@ const useStyles = makeStyles({
 });
 
 const mainLinks = [
-  {label: 'Inbox', icon: FaInbox},
-  {label: 'Today', icon: FaRegCalendar},
-  {label: 'Week', icon: FaRegCalendarAlt},
+  {label: 'Inbox', icon: FaInbox, projectId: 'INBOX'},
+  {label: 'Today', icon: FaRegCalendar, projectId: 'TODAY'},
+  {label: 'Week', icon: FaRegCalendarAlt, projectId: 'WEEK'},
 ]
 
 export const Sidebar = () => {
-  const { setSelectedProject } = useSelectProjectContext;
+  const { setSelectedProject } = useSelectedProjectContext();
   const [active, setAcive] = useState('INBOX');
   const [showProject, setShowProject] = useState(true);
 
@@ -51,6 +50,10 @@ export const Sidebar = () => {
             nodeId={`${index}`}
             labelText={link.label}
             labelIcon={link.icon}
+            onClick={() => {
+              setSelectedProject(link.projectId);
+              setAcive(link.projectId);
+            }}
           />)
         )}
 

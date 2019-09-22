@@ -19,13 +19,13 @@ export const useTasks = selectedProject => {
     } else {
       switch (selectedProject) {
         case 'TODAY':
-          unsubscribe = unsubscribe.where('data', '==', moment('DD/MM/YYYY'));
+          unsubscribe = unsubscribe.where('date', '==', moment().format('DD/MM/YYYY'));
           break;
         case 'INBOX':
-          unsubscribe = unsubscribe.where('data', '==', '');
+          unsubscribe = unsubscribe.where('date', '==', '');
           break;
         default:
-          unsubscribe = unsubscribe.where('data', '==', '');
+          unsubscribe = unsubscribe.where('date', '==', '');
       }
     }
 
@@ -37,7 +37,7 @@ export const useTasks = selectedProject => {
         })
       );
       setTasks(
-        selectedProject === 'NEXT_7'
+        selectedProject === 'WEEK'
           ? newTasks.filter(
           task => moment(task.data, 'DD-MM-YYYY').diff(moment(), 'days') < 7 && task.archive !== true
           )
@@ -54,7 +54,7 @@ export const useTasks = selectedProject => {
 };
 
 export const useProjects = () => {
-  const [projects, setProjects] = useState([{test: 124}]);
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
     firebase

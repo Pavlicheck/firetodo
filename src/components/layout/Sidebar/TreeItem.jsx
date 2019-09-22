@@ -43,24 +43,33 @@ const useTreeItemStyles = makeStyles(theme => ({
     fontWeight: 'inherit',
     flexGrow: 1,
   },
+  actionIcon: {
+    opacity: 0,
+    transition: '.3s',
+    '$content:hover &': {
+      opacity: 1
+    }
+  }
 }));
 
 export const StyledTreeItem = props => {
   const classes = useTreeItemStyles();
-  const { labelText, labelIcon: LabelIcon, labelInfo, color, bgColor, ...other } = props;
-
+  const { labelText, labelIcon: LabelIcon, labelInfo, actionIcon: ActionIcon, color, bgColor, onClick, ...other } = props;
   return (
     <TreeItem
+      selected={true}
       label={
         <div className={classes.labelRoot}>
-          <LabelIcon color="inherit" className={classes.labelIcon} />
-          <Typography variant="body2" className={classes.labelText}>
+          { LabelIcon && <LabelIcon color="inherit" className={classes.labelIcon} /> }
+          <Typography variant="body2" className={classes.labelText} onClick={onClick}>
             {labelText}
           </Typography>
           <Typography variant="caption" color="inherit">
             {labelInfo}
           </Typography>
+          { ActionIcon && <span className={classes.actionIcon}><ActionIcon/></span> }
         </div>
+
       }
       style={{
         '--tree-view-color': color,
