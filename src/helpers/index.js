@@ -9,7 +9,7 @@ export const getTitle = (projects, projectId) =>
 export const getCollatedTitle = (projects, key) =>
   projects.find(project => project.key === key);
 
-export const generatePushID = () => {
+export const generatePushID = (() => {
   const PUSH_CHARS = '-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
 
   let lastPushTime = 0;
@@ -47,4 +47,4 @@ export const generatePushID = () => {
 
     return id;
   };
-};
+})();

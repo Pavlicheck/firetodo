@@ -14,11 +14,13 @@ import Label from '@material-ui/icons/Label';
 import {FaInbox, FaPlus, FaRegCalendar, FaRegCalendarAlt, FaProjectDiagram} from "react-icons/fa";
 import {useSelectedProjectContext} from "../../../context";
 import { Projects } from './Projects'
+import AddProject from "./AddProject";
 
 const useStyles = makeStyles({
   root: {
-    height: 264,
+    minHeight: '90vh',
     flexGrow: 1,
+    paddingBottom: '20px',
     maxWidth: 400,
   },
 });
@@ -68,6 +70,7 @@ export const Sidebar = () => {
           <Projects />
         </StyledTreeItem>
         <StyledTreeItem nodeId="12" labelText="History" labelIcon={Label} />
+        <AddProject/>
       </TreeView>
     </Paper >
   )
