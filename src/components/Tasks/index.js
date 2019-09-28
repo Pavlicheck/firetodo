@@ -10,6 +10,7 @@ import ListItem from "./ListItem";
 import {useProjectsContext, useSelectedProjectContext} from "../../context";
 import { collatedTasksExist, getCollatedTitle, getTitle } from "../../helpers";
 import {collatedTasks} from "../../constans";
+import AddTask from "./AddTask";
 
 const Tasks = () => {
   const { selectedProject } = useSelectedProjectContext();
@@ -32,7 +33,7 @@ const Tasks = () => {
 
   return (
     <Paper elevation={2} className='tasks' dataTestid="tasks">
-
+      <AddTask/>
       <List className="tasks-list">
         <ListSubheader component="div" id="nested-list-subheader">
           <Typography dataTestid='project-name' variant="h6" component="h6">{projectName}</Typography>

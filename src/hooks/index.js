@@ -13,13 +13,13 @@ export const useTasks = selectedProject => {
       .firestore()
       .collection('tasks')
       .where('userId', '==', 'testUser')
-
+    console.log(selectedProject)
     if (selectedProject && !collatedTasksExist(selectedProject)) {
       unsubscribe = unsubscribe.where('projectId', '==', selectedProject)
     } else {
       switch (selectedProject) {
         case 'TODAY':
-          unsubscribe = unsubscribe.where('date', '==', moment().format('DD/MM/YYYY'));
+          unsubscribe = unsubscribe.where('date', '==', moment().format('YYYY-MM-DD'));
           break;
         case 'INBOX':
           unsubscribe = unsubscribe.where('date', '==', '');

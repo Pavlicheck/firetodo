@@ -15,6 +15,9 @@
     "react-icons": "^3.7.0",
     "react-scripts": "3.1.1"
   },
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
